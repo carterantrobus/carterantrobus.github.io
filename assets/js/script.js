@@ -46,16 +46,6 @@ function initLoaderHome() {
     opacity: 1,
   });
 
-  if ($(window).width() > 540) {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "10vh"
-    });
-  } else {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "5vh",
-    });
-  }
-
   tl.set("html", {
     cursor: "wait"
   });
@@ -103,12 +93,6 @@ function initLoaderHome() {
     delay: .2
   });
 
-  tl.to(".loading-screen .rounded-div-wrap.bottom",{
-    duration: 1,
-    height: "0vh",
-    ease: "Power4.easeInOut"
-  }, "=-.8");
-
   tl.to(".loading-words", {
     duration: .3,
     opacity: 0,
@@ -117,10 +101,6 @@ function initLoaderHome() {
 
   tl.set(".loading-screen", {
     top: "calc(-100%)"
-  });
-
-  tl.set(".loading-screen .rounded-div-wrap.bottom", {
-    height: "0vh"
   });
 
   tl.to("main .once-in", {
@@ -165,16 +145,6 @@ function initLoader() {
     y: -50
   });
 
-  if($(window).width() > 540) {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "10vh",
-    });
-  } else {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "5vh",
-    })
-  }
-
   tl.set("html", {
     cursor: "wait"
   });
@@ -186,12 +156,6 @@ function initLoader() {
     delay: .5
   });
 
-  tl.to(".loading-screen .rounded-div-wrap.bottom", {
-    duration: 1,
-    height: "0vh",
-    ease: "Power4.easeInOut",
-  }, "=-.8");
-
   tl.to(".loading-words", {
     duration: .3,
     opacity: 0,
@@ -200,10 +164,6 @@ function initLoader() {
 
   tl.set(".loading-screen", {
     top: "calc(-100%)"
-  });
-
-  tl.set(".loading-screen .rounded-div-wrap.bottom", {
-    height: "0vh"
   });
 
   tl.to("main .once-in", {
@@ -242,35 +202,11 @@ function pageTransitionIn() {
     cursor: "wait",
   });
 
-  if($(window).width() > 540) {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "10vh"
-    });
-  } else {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "5vh"
-    })
-  }
-
   tl.to(".loading-screen", {
     duration: .5,
     top: "0%",
     ease: "Power4.easeIn"
   });
-
-  if($(window).width() > 540) {
-    tl.to(".loading-screen .rounded-div-wrap.top", {
-      duration: .4,
-      height: "10vh",
-      ease: "Power4.easeIn"
-    }, "=-.5");
-  } else {
-    tl.to(".loading-screen .rounded-div-wrap.top", {
-      duration: .4,
-      height: "10vh",
-      ease: "Power4.easeIn"
-    }, "=-.5");
-  }
 
   tl.to(".loading-words", {
     duration: .8,
@@ -278,10 +214,6 @@ function pageTransitionIn() {
     y: -50,
     ease: "Power4.easeOut",
     delay: .05
-  });
-
-  tl.set(".loading-screen .rounded-div-wrap.top", {
-    height: "0vh"
   });
 
   tl.to(".loading-screen", {
@@ -296,25 +228,9 @@ function pageTransitionIn() {
     ease: "linear"
   }, "=-.8");
 
-  tl.to(".loading-screen .rounded-div-wrap.bottom", {
-    duration: .85,
-    height: "0",
-    ease: "Power3.easeOut"
-  }, "=-.6");
-
   tl.set("html", {
     cursor: "auto"
   }, "=-0.6");
-
-  if($(window).width() > 540) {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "10vh"
-    });
-  } else {
-    tl.set(".loading-screen .rounded-div-wrap.bottom", {
-      height: "5vh"
-    });
-  }
 
   tl.set(".loading-screen", {
     top: "100%"
@@ -517,7 +433,6 @@ function initScript() {
   initScrollTriggerNav();
   initScrollLetters();
   initTricksWords();
-  initContactForm();
   initTimeZone();
   initLazyLoad();
   initPlayVideoInview();
@@ -867,23 +782,6 @@ function initTricksWords() {
 
 }
 
-// Contact Form
-
-function initContactForm() {
-
-  $('.field').on('input', function() {
-    $(this).parent().toggleClass('not-empty', this.value.trim().length > 0);
-  });
-
-  $(function() {
-   $('.field').focusout(function() {
-      var textVal = $(this).val();
-     $(this).parent().toggleClass('not-empty', textVal !== "");
-    }).focusout();
-  });
-
-}
-
 // Footer Time Zone
 
 function initTimeZone() {
@@ -1098,6 +996,7 @@ function initScrollTriggerAnimations() {
         });
         }
       
+      
       if(document.querySelector(".about-image .single-about-image")) {
       // ScrollTrigger Animation : About 
       $(".about-image .single-about-image").each(function (index) {
@@ -1197,43 +1096,3 @@ function initScrollTriggerAnimations() {
   }); // End GSAP MatchMedia
 
 }
-
-const contact_form = document.querySelector('.form');
-let name = document.getElementById("form-name");
-let email = document.getElementById("form-email");
-let tel = document.getElementById("form-tel");
-let subject = document.getElementById("form-subject");
-let message = document.getElementById("form-message");
-
-console.log('hello');
-
-contact_form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  let formData = {
-    name: name.value,
-    email: email.value,
-    tel: tel.value,
-    subject: subject.value,
-    message: message.value
-  };
-
-  let xhr = new XMLHttpRequest();
-  xhr.open('POST', '/');
-  xhr.setRequestHeader('content-type', 'application/json');
-  xhr.onload = function() {
-    console.log(xhr.responseText);
-    if(xhr.responseText == 'success') {
-      alert('Email Sent');
-      name.value = '';
-      email.value = '';
-      tel.value = '';
-      subject.value = '';
-      message.value = '';
-    } else {
-      alert('Something Went Wrong');
-    }
-  }
-
-  xhr.send(JSON.stringify(formData));
-});
